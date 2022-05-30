@@ -72,9 +72,13 @@ const updateCustomers = (req, res) => {
 //Post Request that handles deleting customer by id
 const deleteCustomers = (req, res) => {
   console.log(req.body);
-  var myquery = { Email: req.body.Email };
+  var myquery = { Email: req.body.email };
+
   Customer.deleteOne(myquery)
-    .then(res.send("deleted"))
+    .then(() => {
+      console.log("deleted");
+      res.send("deleted");
+    })
     .catch((err) => console.log(err));
 };
 module.exports = {

@@ -51,6 +51,7 @@ const registerUser = (req, res) => {
 const loginView = (req, res) => {
   res.render("login", {});
 };
+
 module.exports = {
   registerView,
   loginView,

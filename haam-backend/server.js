@@ -5,6 +5,8 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const path = require("path");
 const apiRouter = require("./routes/api");
+const authRouter = require("./routes/auth");
+
 const cors = require("cors");
 const bodyParser = require("body-parser");
 app.use(bodyParser.json());
@@ -35,6 +37,7 @@ app.set("view engine", "ejs");
 app.use("/", require("./routes/login"));
 
 app.use("/api", apiRouter);
+app.use("/auth", authRouter);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);

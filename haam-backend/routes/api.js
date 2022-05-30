@@ -7,6 +7,7 @@ const {
   updateCustomers,
   deleteCustomers,
 } = require("../controllers/customersController");
+const authToken = require("../middleware/authenticateToken");
 
 const router = express.Router();
 
@@ -24,7 +25,7 @@ router.route("/register").post(async (req, res) => {
 router.get("/customers", getCustomers);
 
 // UPDATE Customers
-router.route("/update-customer").post(async (req, res) => {
+router.route("/update-customer").post(authToken, async (req, res) => {
   try {
     await updateCustomers(req, res);
   } catch (err) {
@@ -33,7 +34,7 @@ router.route("/update-customer").post(async (req, res) => {
 });
 
 // DELETE Customers
-router.route("/delete-customer").post(async (req, res) => {
+router.route("/delete-customer").post(authToken, async (req, res) => {
   try {
     await deleteCustomers(req, res);
   } catch (err) {

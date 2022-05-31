@@ -139,6 +139,7 @@ router.post("/login", async (req, res) => {
   res.json({
     accessToken,
     refreshToken,
+    user:customer
   });
 });
 

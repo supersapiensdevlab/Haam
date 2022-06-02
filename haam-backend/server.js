@@ -16,6 +16,11 @@ app.use(
   })
 );
 dotenv.config();
+
+// For File Upload
+
+app.use('/uploads', express.static('uploads'));
+
 // Mongo DB conncetion
 const database = process.env.MONGODB_URI;
 mongoose

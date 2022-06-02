@@ -26,13 +26,17 @@ const authToken = async (req, res, next) => {
     req.user = user.email;
     next();
   } catch (error) {
-    res.status(403).json({
-      errors: [
-        {
-          msg: "Invalid token",
-        },
-      ],
-    });
+    try {
+      res.status(403).json({
+        errors: [
+          {
+            msg: "Invalid token",
+          },
+        ],
+      });
+    } catch (e) {
+      console.log(e);
+    }
   }
 };
 

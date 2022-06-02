@@ -32,22 +32,22 @@ const storage = multer.diskStorage({
   });
 
 router.post("/product",authToken,upload.single('image'),async(req,res)=>{
-  try{
-    const {name,price,description,category,type,size,quantity}=req.body
-    const image = req.file.filename;
-    if(name != "" && price>0){
-      const product = new Product({
-        ProductID:Date.now(),
-        ProductName:name,
-        CateoryID:category,
-        QuantityPerUnit:quantity,
-        UnitPrice:price,
+  // try{
+  //   const {name,price,description,category,type,size,quantity}=req.body
+  //   const image = req.file.filename;
+  //   if(name != "" && price>0){
+  //     const product = new Product({
+  //       ProductID:Date.now(),
+  //       ProductName:name,
+  //       CateoryID:category,
+  //       QuantityPerUnit:quantity,
+  //       UnitPrice:price,
         
-      }      )
-    }
-  }catch(err){
-    console.log(err)
-  }
+  //     }      )
+  //   }
+  // }catch(err){
+  //   console.log(err)
+  // }
 })
 
 router.route("/register").post(async (req, res) => {

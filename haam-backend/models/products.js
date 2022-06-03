@@ -13,7 +13,7 @@ const ProductSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
-  CateoryID: {
+  CategoryID: {
     type: Number,
     required: true,
   },
@@ -37,6 +37,19 @@ const ProductSchema = new mongoose.Schema({
   UnitsInStock: {
     type: Number,
     required: false,
+  },
+  // Created By Prasad
+  Description:{
+    type:String,
+  },
+  Size:{
+    type:Number,
+  },
+  Type:{
+    type:Number
+  },
+  Image:{
+    type:String
   },
   CreatedOn: {
     type: Date,

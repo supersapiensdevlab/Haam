@@ -36,6 +36,9 @@ const CustomerSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  Image:{
+    type:String,
+  }
 });
 mongoose.models = {};
 

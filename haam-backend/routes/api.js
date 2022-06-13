@@ -19,6 +19,8 @@ const {
 const multer = require("multer");
 const router = express.Router();
 const Product = require("../models/products");
+const {getOrders} = require("../controllers/ordersController")
+const Orders = require("../models/orders");
 
 
 router.get("/products", getProducts);
@@ -190,6 +192,24 @@ router.post("/options/delete-category", async (req, res) => {
     console.log(err);
   }
 });
+
+// Routes For Orders
+router.get("/orders",async(req,res)=>{
+  try {
+    await getOrders(req, res);
+} catch (err) {
+  console.log(err);
+}
+})
+// router.get("/addsample",async(req,res)=>{
+//   try {
+//     const order = new Orders({OrderID:101011,CustomerID:1,ProductID:1654671383537,QuantityOrdered:1,OrderDate:"2020-01-01",ShippedDate:"2020-01-01",RequiredDate:"2020-01-01",Comment:"Nice",Status:"Coming"});
+//     await order.save();
+//     res.send("done");
+// } catch (err) {
+//   console.log(err);
+// }
+// })
 
 
 module.exports = router;

@@ -3,6 +3,7 @@ const { check, validationResult } = require("express-validator");
 const bcrypt = require("bcrypt");
 const JWT = require("jsonwebtoken");
 const Customer = require("../models/Customers");
+const authToken = require("../middleware/authenticateToken");
 
 require("dotenv").config();
 
@@ -203,5 +204,11 @@ router.delete("/logout", (req, res) => {
   refreshTokens = refreshTokens.filter((token) => token !== refreshToken);
   res.sendStatus(204);
 });
+
+// get current user
+router.get('/getcurrentuser',authToken,async(req,res)=>{
+  const user = await Customer.findOne({Email:req.user});
+  res.send({user});
+})
 
 module.exports = router;

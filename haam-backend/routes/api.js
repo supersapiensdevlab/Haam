@@ -15,6 +15,8 @@ const {
   addType,
   deleteType,
   getCategory,
+  updateCategory,
+  updateType,
 } = require("../controllers/optionsController");
 const multer = require("multer");
 const router = express.Router();
@@ -188,6 +190,22 @@ router.post("/options/category", async (req, res) => {
 router.post("/options/delete-category", async (req, res) => {
   try {
       await deleteCategory(req, res);
+  } catch (err) {
+    console.log(err);
+  }
+});
+router.post("/options/type-update", async (req, res) => {
+  try {
+    console.log(req.body);
+      await updateType(req, res);
+  } catch (err) {
+    console.log(err);
+  }
+});
+router.post("/options/category-update", async (req, res) => {
+  try {
+    console.log(req.body);
+      await updateCategory(req, res);
   } catch (err) {
     console.log(err);
   }

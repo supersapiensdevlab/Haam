@@ -12,7 +12,7 @@ const registerView = (req, res) => {
 //Post Request that handles Register
 const registerUser = (req, res) => {
   const { name, email, phone, password, confirm } = req.body;
-  const image = req.file.filename;
+  const image = req.file? req.file.filename:null;
   if (!name || !email || !password || !confirm) {
     console.log("Fill empty fields");
   }
@@ -32,7 +32,7 @@ const registerUser = (req, res) => {
           Email: email,
           Phone: phone,
           Password: password,
-          Image:image
+          Image:image?image:null
         });
         //Password Hashing
         bcrypt.genSalt(10, (err, salt) =>

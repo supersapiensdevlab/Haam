@@ -21,7 +21,7 @@ const {
 const multer = require("multer");
 const router = express.Router();
 const Product = require("../models/products");
-const {getOrders} = require("../controllers/ordersController")
+const {getOrders,addOrder} = require("../controllers/ordersController")
 const Orders = require("../models/orders");
 
 
@@ -215,6 +215,13 @@ router.post("/options/category-update", async (req, res) => {
 router.get("/orders",async(req,res)=>{
   try {
     await getOrders(req, res);
+} catch (err) {
+  console.log(err);
+}
+})
+router.post("/orders",async(req,res)=>{
+  try {
+    await addOrder(req, res);
 } catch (err) {
   console.log(err);
 }

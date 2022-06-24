@@ -30,7 +30,12 @@ const updateCustomers = (req, res) => {
   console.log(customerData);
   var myquery = { Email: req.body.email };
   var password = req.body.password;
+  let image = req.body.image;
+  if (typeof image != "string") {
+    image = req.file.filename;
+  }
   var newvalues = {
+    Image:image,
     Name: req.body.name,
     Email: req.body.email,
     Phone: req.body.phone,
@@ -44,6 +49,7 @@ const updateCustomers = (req, res) => {
         if (err) throw err;
         var newvalues = {
           $set: {
+            Image:image,
             Name: req.body.name,
             Email: req.body.email,
             Phone: "" + req.body.phone,

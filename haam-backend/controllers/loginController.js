@@ -21,13 +21,16 @@ const registerUser = (req, res) => {
     console.log("Password must match");
   } else {
     //Validation
-    Customer.findOne({ Email: email }).then((user) => {
+    Customer.findOne({ Email: email }).then(async (user) => {
       if (user) {
         console.log("email exists", email);
         res.send("email exists" + email);
       } else {
+        const last = await Customer.find({}).sort({_id:-1}).limit(1);
+        const id = last[0].CustomerID + 1;
         //Validation
         const newUser = new Customer({
+          CustomerID:id,
           Name: name,
           Email: email,
           Phone: phone,

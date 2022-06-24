@@ -21,7 +21,7 @@ const {
 const multer = require("multer");
 const router = express.Router();
 const Product = require("../models/products");
-const {getOrders,addOrder} = require("../controllers/ordersController")
+const {getOrders,addOrder, updateOrder} = require("../controllers/ordersController")
 const Orders = require("../models/orders");
 
 
@@ -35,7 +35,9 @@ const storage = multer.diskStorage({
     cb(null, "./uploads");
   },
   filename: function (req, file, cb) {
-    cb(null, file.originalname);
+    const timestamp = Date.now()
+    req.image_timestamp = timestamp;
+    cb(null,timestamp+ "_" +file.originalname);
   },
 });
 
@@ -53,8 +55,10 @@ router.post("/product", authToken, upload.single("image"), async (req, res) => {
     console.log(typeof(category));
     const image = req.file.filename;
     if (name != "" && price > 0) {
+      const last = await Product.find({}).sort({_id:-1}).limit(1);
+      const id = last[0].ProductID + 1;
       const product = new Product({
-        ProductID: Date.now(),
+        ProductID: id,
         ProductName: name,
         CategoryID: category,
         QuantityPerUnit: quantity,
@@ -128,7 +132,7 @@ router.route("/register").post(upload.single("image"),async (req, res) => {
 router.get("/customers", getCustomers);
 
 // UPDATE Customers
-router.route("/update-customer").post(authToken, async (req, res) => {
+router.route("/update-customer").post(authToken,upload.single("image"), async (req, res) => {
   try {
     await updateCustomers(req, res);
   } catch (err) {
@@ -222,6 +226,23 @@ router.get("/orders",async(req,res)=>{
 router.post("/orders",async(req,res)=>{
   try {
     await addOrder(req, res);
+} catch (err) {
+  console.log(err);
+}
+})
+// To delete order
+router.post("/delete-order", authToken, async (req, res) => {
+  try {
+    const { _id } = req.body;
+    const result = await Orders.findByIdAndDelete(_id);
+    res.send(result);
+  } catch (err) {
+    console.log(err);
+  }
+});
+router.post("/update-order",async(req,res)=>{
+  try {
+    await updateOrder(req, res);
 } catch (err) {
   console.log(err);
 }

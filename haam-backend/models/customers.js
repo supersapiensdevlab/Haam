@@ -1,8 +1,10 @@
 const mongoose = require("mongoose");
 const CustomerSchema = new mongoose.Schema({
   CustomerID: {
-    type: Date,
-    default: "",
+    type: Number,
+    default:0,
+    required:true,
+    unique:true
   },
   ContactTitle: {
     type: String,
@@ -15,6 +17,7 @@ const CustomerSchema = new mongoose.Schema({
   Email: {
     type: String,
     required: true,
+    unique:true
   },
   CompanyName: {
     type: String,

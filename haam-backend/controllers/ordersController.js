@@ -31,8 +31,20 @@ const addOrder = (req, res) => {
     console.log(err);
   }
 };
+const updateOrder = (req, res) => {
+  try {
+    const { _id,CustomerID, OrderDate, RequiredDate, ShippedDate, Comment, Status, ProductID,QuantityOrdered } =  req.body;
+   
+      Orders.findByIdAndUpdate(_id,{CustomerID, OrderDate, RequiredDate, ShippedDate, Comment, Status, ProductID,QuantityOrdered}).then((order)=>{
+        res.send(order);
+      })
+  } catch (err) {
+    console.log(err);
+  }
+};
 
 module.exports = {
   getOrders,
-  addOrder
+  addOrder,
+  updateOrder
 };
